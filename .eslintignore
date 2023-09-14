@@ -1,0 +1,3 @@
+# Static & External librairies & build files
+dist
+node_modules
