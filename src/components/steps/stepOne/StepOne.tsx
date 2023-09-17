@@ -1,6 +1,6 @@
 import { TalkMachineContext } from '../../../machines/talkMachine.context'
 import { Edges } from './edges/Edges'
-import { Vertices } from './vertices/Vertices.1'
+import { Vertices } from './vertices/Vertices'
 import { Text } from '@react-three/drei'
 
 export const StepOne = () => {
