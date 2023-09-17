@@ -1,10 +1,23 @@
-import { Sphere } from '@react-three/drei'
 import { MeshProps } from '@react-three/fiber'
+import { a, easings, useSpring } from '@react-spring/three'
 
 type Vertex = {
-  index: number // This will be used for animating delay between each vertex apparition
   position: MeshProps['position']
 }
 export const Vertex = ({ position }: Vertex) => {
-  return <Sphere scale={0.1} position={position} />
+  const { scale } = useSpring({
+    from: { scale: 0.05 },
+    to: [{ scale: 0.1 }],
+    config: {
+      easing: easings.easeOutBounce,
+      duration: 850
+    }
+  })
+
+  return (
+    <a.mesh position={position} scale={scale}>
+      <sphereGeometry />
+      <meshBasicMaterial />
+    </a.mesh>
+  )
 }
