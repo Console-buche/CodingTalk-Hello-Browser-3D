@@ -1,6 +1,6 @@
 import { Line } from '@react-three/drei'
-import { LinePoints } from '../stepOne.constants'
 import { useSpring, easings, a } from '@react-spring/three'
+import { LinePoints } from '../../stepOne.constants'
 
 type Edge = {
   index: number // This will be used for animating delay between each vertex apparition
@@ -17,7 +17,7 @@ export const Edge = ({ points }: Edge) => {
   })
   return (
     <a.group scale={scale}>
-      <Line lineWidth={12} points={points} color="white" />
+      <Line depthWrite={false} lineWidth={12} points={points} color="white" />
     </a.group>
   )
 }

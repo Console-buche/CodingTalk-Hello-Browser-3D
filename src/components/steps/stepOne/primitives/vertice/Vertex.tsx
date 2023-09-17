@@ -1,10 +1,7 @@
 import { MeshProps } from '@react-three/fiber'
 import { a, easings, useSpring } from '@react-spring/three'
 
-type Vertex = {
-  position: MeshProps['position']
-}
-export const Vertex = ({ position }: Vertex) => {
+export const Vertex = ({ position }: MeshProps) => {
   const { scale } = useSpring({
     from: { scale: 0.05 },
     to: [{ scale: 0.1 }],

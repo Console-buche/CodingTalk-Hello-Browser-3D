@@ -1,17 +1,34 @@
+import { Box, Text } from '@react-three/drei'
+import { useFrame } from '@react-three/fiber'
+import { useRef } from 'react'
+import { Group } from 'three'
 import { TalkMachineContext } from '../../../machines/talkMachine.context'
-import { Edges } from './edges/Edges'
-import { Vertices } from './vertices/Vertices'
-import { Text } from '@react-three/drei'
+import { FirstPrimitives } from './primitives/FirstPrimitives'
+import { RestPrimitives } from './primitives/RestPrimitives'
 
 export const StepOne = () => {
-  const [state, event] = TalkMachineContext.useActor()
+  const [state] = TalkMachineContext.useActor()
+  const test = state.toStrings()
+  console.log(test)
+  const ref = useRef<Group>(null)
+
+  useFrame(() => {
+    if (!ref.current) {
+      return null
+    }
+    ref.current.rotation.z += 0.001
+  })
   return (
     <>
-      {/* <Triangle /> */}
-      <Vertices />
-      <Edges />
-      <Text position={[0, -1, 0]}>{JSON.stringify(state.value)}</Text>
-      <Text position={[0, -2, 0]}>{JSON.stringify(state.matches({ stepOne: 'isMissingVertices' }))}</Text>
+      <group ref={ref}>
+        <Box args={[2, 2, 2]} position-z={-1} material-depthTest={false} material-transparent material-opacity={0.3} />
+        <FirstPrimitives />
+        <RestPrimitives />
+      </group>
+      <group position-y={-1}>
+        <Text position={[0, -1, 0]}>{JSON.stringify(state.value)}</Text>
+        <Text position={[0, -2, 0]}>{JSON.stringify(state.matches({ stepOne: 'isMissingVertices' }))}</Text>
+      </group>
     </>
   )
 }

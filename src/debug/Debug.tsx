@@ -6,7 +6,8 @@ export const Debug = () => {
   const leva = useControls({
     stepOne: button(() => event({ type: 'start' })),
     showOneVertex: button(() => event({ type: 'showOneVertex' })),
-    oneVertexVisible: button(() => event({ type: 'addVertices' }))
+    oneVertexVisible: button(() => event({ type: 'addVertices' })),
+    finishBuilding: button(() => event({ type: 'addRestVertices' }))
   })
   return <></>
 }
