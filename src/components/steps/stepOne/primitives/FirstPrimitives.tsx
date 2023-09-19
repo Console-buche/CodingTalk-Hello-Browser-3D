@@ -8,12 +8,13 @@ import { VerticesMesh } from './vertice/Vertice'
 export const FirstPrimitives = (props: GroupProps) => {
   const [state] = TalkMachineContext.useActor()
   const vertices = Array.from(STEP_ONE_VERTICES.values())
+  const isVerticesVisible = state.matches({ stepOne: 'hasThreeVertices' }) || state.matches({ stepOne: 'helloWorld' })
 
   const points = Array.from(STEP_ONE_LINEPOINTS.values())
 
   return (
     <group {...props}>
-      <Triangle />
+      <Triangle isVisible={isVerticesVisible} vertices={Array.from(STEP_ONE_VERTICES.values())} />
       <VerticesMesh vertices={vertices.filter((_, i) => i < state.context.stepOneVerticesCount)} />
       <Edges
         points={points.filter(

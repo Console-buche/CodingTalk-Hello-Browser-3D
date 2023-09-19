@@ -8,8 +8,6 @@ import { RestPrimitives } from './primitives/RestPrimitives'
 
 export const StepOne = () => {
   const [state] = TalkMachineContext.useActor()
-  const test = state.toStrings()
-  console.log(test)
   const ref = useRef<Group>(null)
 
   useFrame(() => {
@@ -18,6 +16,7 @@ export const StepOne = () => {
     }
     ref.current.rotation.z += 0.001
   })
+
   return (
     <>
       <group ref={ref}>

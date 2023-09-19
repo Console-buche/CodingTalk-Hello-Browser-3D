@@ -1,18 +1,16 @@
 import { a, useSpring } from '@react-spring/three'
-import { MeshProps } from '@react-three/fiber'
 import { useMemo, useRef } from 'react'
 import { DoubleSide, Mesh } from 'three'
 import { TalkMachineContext } from '../../../../../machines/talkMachine.context'
-import { STEP_ONE_VERTICES } from '../../stepOne.constants'
+import { Vertex } from '../../stepOne.constants'
 
 // TODO: give Triangle its three vertices as props instead of tapping directly in the STEP_ONE_VERTICES
 // This way it'll be reusable
 
-export const Triangle = (props: MeshProps) => {
+export const Triangle = ({ vertices, isVisible }: { isVisible: boolean; vertices: Vertex[] }) => {
   const [state] = TalkMachineContext.useActor()
   const ref = useRef<Mesh>(null)
 
-  const isVisible = state.matches({ stepOne: 'hasThreeVertices' }) || state.matches({ stepOne: 'helloWorld' })
   const { opacity } = useSpring({
     opacity: isVisible ? 0.7 : 0,
     config: {
@@ -21,10 +19,10 @@ export const Triangle = (props: MeshProps) => {
   })
 
   const positions = useMemo(() => {
-    return new Float32Array(Array.from(STEP_ONE_VERTICES.values()).flat())
+    return new Float32Array(vertices.flat())
   }, [])
   return (
-    <mesh {...props} ref={ref}>
+    <mesh ref={ref}>
       <bufferGeometry>
         <bufferAttribute attach="attributes-position" array={positions} count={3} itemSize={3} />
       </bufferGeometry>
