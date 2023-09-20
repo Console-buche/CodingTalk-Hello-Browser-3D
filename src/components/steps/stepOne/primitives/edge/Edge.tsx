@@ -1,5 +1,8 @@
 import { Line } from '@react-three/drei'
-import { useSpring, easings, a } from '@react-spring/three'
+import { useFrame } from '@react-three/fiber'
+import { useRef } from 'react'
+import { Line2 } from 'three/examples/jsm/lines/Line2.js'
+import { LineSegments2 } from 'three/examples/jsm/lines/LineSegments2.js'
 import { LinePoints } from '../../stepOne.constants'
 
 type Edge = {
@@ -7,17 +10,26 @@ type Edge = {
   points: LinePoints
 }
 export const Edge = ({ points }: Edge) => {
-  const { scale } = useSpring({
-    from: { scale: 0.05 },
-    to: [{ scale: 1 }],
-    config: {
-      easing: easings.easeOutBounce,
-      duration: 850
+  const lineRef = useRef<Line2 | LineSegments2>(null)
+  let initialGapSize = 3
+
+  useFrame(() => {
+    if (lineRef.current) {
+      const dashSize = lineRef.current.material.dashSize
+      lineRef.current.material.dashSize = dashSize < initialGapSize ? dashSize + 0.1 : initialGapSize
     }
   })
+
   return (
-    <a.group scale={scale}>
-      <Line depthWrite={false} lineWidth={12} points={points} color="white" />
-    </a.group>
+    <Line
+      ref={lineRef}
+      dashed
+      dashSize={0}
+      gapSize={initialGapSize}
+      depthWrite={false}
+      color="white"
+      lineWidth={12}
+      points={points}
+    />
   )
 }
