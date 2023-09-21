@@ -6,7 +6,7 @@ import { TalkMachineContext } from './machines/talkMachine.context'
 export const App = () => {
   return (
     <TalkMachineContext.Provider>
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'start' }}>
+      <div style={{ display: 'flex', height: '100vh', alignItems: 'center', justifyContent: 'start' }}>
         <Scene />
         <CodeBox />
         <Debug />

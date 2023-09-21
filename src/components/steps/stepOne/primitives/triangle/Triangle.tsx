@@ -1,4 +1,4 @@
-import { a, useSpring } from '@react-spring/three'
+import { a, easings, useSpring } from '@react-spring/three'
 import { useMemo, useRef } from 'react'
 import { DoubleSide, Mesh } from 'three'
 import { Vertex } from '../../stepOne.constants'
@@ -8,9 +8,10 @@ export const Triangle = ({ vertices, isVisible }: { isVisible: boolean; vertices
 
   const randomColor = useMemo(() => '#' + Math.floor(Math.random() * 16777215).toString(16), [])
   const { opacity } = useSpring({
-    opacity: isVisible ? 0.7 : 0,
+    opacity: isVisible ? 0.9 : 0,
     config: {
-      duration: 1250
+      duration: 750,
+      easing: easings.easeOutSine
     }
   })
 

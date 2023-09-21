@@ -3,6 +3,7 @@ import { createMachine, assign } from 'xstate'
 export const talkMachine = createMachine(
   {
     context: {
+      codeSample: '',
       stepOneVerticesCount: 0,
       stepOneTrianglesRestCount: 0,
       stepOneVerticesRestCount: 0
@@ -21,6 +22,9 @@ export const talkMachine = createMachine(
         initial: 'helloWorld',
         states: {
           helloWorld: {
+            entry: assign(context => {
+              return { ...context, codeSample: 'This is not a triangle.' }
+            }),
             on: {
               showOneVertex: {
                 target: 'oneVertexVisible',
@@ -76,7 +80,7 @@ export const talkMachine = createMachine(
           },
           hasNotAllVerticesShowing: {
             after: {
-              '100': [
+              '30': [
                 {
                   target: '#talk.stepOne.hasNotAllVerticesShowing',
                   cond: 'hasNotAllVertices',
@@ -96,14 +100,10 @@ export const talkMachine = createMachine(
             }
           },
           hasAllVertices: {
+            exit: assign(context => {
+              return { ...context, codeSample: 'Painting faces!' }
+            }),
             on: {
-              addRestVertices: {
-                target: 'hasThreeVertices',
-                actions: {
-                  type: 'addRestVertex',
-                  params: {}
-                }
-              },
               addRestTriangles: {
                 target: 'hasNotAllTrianglesShowing',
                 actions: {
@@ -115,7 +115,7 @@ export const talkMachine = createMachine(
           },
           hasNotAllTrianglesShowing: {
             after: {
-              '100': [
+              '500': [
                 {
                   target: '#talk.stepOne.hasNotAllTrianglesShowing',
                   cond: 'hasNotAllTriangles',
@@ -135,6 +135,15 @@ export const talkMachine = createMachine(
             }
           },
           hasAllTriangles: {
+            entry: assign(context => {
+              return {
+                ...context,
+                codeSample: `<mesh>
+  <geometry />
+  <material />
+</mesh>`
+              }
+            }),
             on: {
               addRestTriangles: {
                 target: 'hasAllTriangles',
@@ -163,17 +172,24 @@ export const talkMachine = createMachine(
     actions: {
       addVertex: assign(context => {
         const newVerticesCount = context.stepOneVerticesCount + 1
+        const lines = Array.from({ length: newVerticesCount }, (_, i) => `const point${i} = new Vector3(x, y, z)`)
+        const codeSample = lines.join('\n')
         console.log('adding vertices')
         return {
           ...context,
+          // codeSample: JSON.stringify(codeSample),
+          codeSample,
           stepOneVerticesCount: newVerticesCount
         }
       }),
       addRestVertex: assign(context => {
         const newVerticesCount = context.stepOneVerticesRestCount + 1
         console.log('adding rest vertices')
+        const codeSample = `const geometry = new BufferGeometry()
+[...x${newVerticesCount}]`
         return {
           ...context,
+          codeSample,
           stepOneVerticesRestCount: newVerticesCount
         }
       }),
@@ -189,10 +205,10 @@ export const talkMachine = createMachine(
     services: {},
     guards: {
       hasNotAllVertices: (context, event) => {
-        return context.stepOneVerticesRestCount < 12
+        return context.stepOneVerticesRestCount < 8
       },
       hasAllVertices: (context, event) => {
-        return context.stepOneVerticesRestCount === 12
+        return context.stepOneVerticesRestCount === 8
       },
       hasLessThanThreeVertices: (context, event) => {
         return context.stepOneVerticesCount < 3

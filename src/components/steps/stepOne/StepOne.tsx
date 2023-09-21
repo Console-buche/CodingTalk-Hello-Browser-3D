@@ -15,7 +15,7 @@ export const StepOne = () => {
     if (!ref.current) {
       return null
     }
-    // ref.current.rotation.z += 0.001
+    ref.current.rotation.z += 0.001
   })
 
   return (
@@ -25,10 +25,10 @@ export const StepOne = () => {
         <FirstPrimitives />
         <RestPrimitives />
       </group>
-      <group position-y={-1}>
-        <Text position={[0, -1, 0]}>{JSON.stringify(state.value)}</Text>
-        <Text position={[0, -2, 0]}>{JSON.stringify(state.matches({ stepOne: 'isMissingVertices' }))}</Text>
-      </group>
+      {/* <group position-y={-1}> */}
+      {/*   <Text position={[0, -1, 0]}>{JSON.stringify(state.value)}</Text> */}
+      {/*   <Text position={[0, -2, 0]}>{JSON.stringify(state.matches({ stepOne: 'isMissingVertices' }))}</Text> */}
+      {/* </group> */}
     </>
   )
 }
