@@ -4,6 +4,7 @@ export const talkMachine = createMachine(
   {
     context: {
       stepOneVerticesCount: 0,
+      stepOneTrianglesRestCount: 0,
       stepOneVerticesRestCount: 0
     },
     id: 'talk',
@@ -43,7 +44,7 @@ export const talkMachine = createMachine(
           },
           isMissingVertices: {
             after: {
-              '1000': [
+              '100': [
                 {
                   target: '#talk.stepOne.isMissingVertices',
                   cond: 'hasLessThanThreeVertices',
@@ -102,6 +103,45 @@ export const talkMachine = createMachine(
                   type: 'addRestVertex',
                   params: {}
                 }
+              },
+              addRestTriangles: {
+                target: 'hasNotAllTrianglesShowing',
+                actions: {
+                  type: 'addRestTriangle',
+                  params: {}
+                }
+              }
+            }
+          },
+          hasNotAllTrianglesShowing: {
+            after: {
+              '100': [
+                {
+                  target: '#talk.stepOne.hasNotAllTrianglesShowing',
+                  cond: 'hasNotAllTriangles',
+                  actions: [
+                    {
+                      type: 'addRestTriangle',
+                      params: {}
+                    }
+                  ]
+                },
+                {
+                  target: '#talk.stepOne.hasAllTriangles',
+                  cond: 'hasAllTriangles',
+                  actions: []
+                }
+              ]
+            }
+          },
+          hasAllTriangles: {
+            on: {
+              addRestTriangles: {
+                target: 'hasAllTriangles',
+                actions: {
+                  type: 'addRestTriangle',
+                  params: {}
+                }
               }
             }
           }
@@ -114,6 +154,7 @@ export const talkMachine = createMachine(
         | { type: 'showOneVertex' }
         | { type: 'addVertices' }
         | { type: 'addRestVertices' }
+        | { type: 'addRestTriangles' }
     },
     predictableActionArguments: true,
     preserveActionOrder: true
@@ -135,6 +176,14 @@ export const talkMachine = createMachine(
           ...context,
           stepOneVerticesRestCount: newVerticesCount
         }
+      }),
+      addRestTriangle: assign(context => {
+        const newTrianglesCount = context.stepOneTrianglesRestCount + 1
+        console.log('adding rest triangles')
+        return {
+          ...context,
+          stepOneTrianglesRestCount: newTrianglesCount
+        }
       })
     },
     services: {},
@@ -150,6 +199,12 @@ export const talkMachine = createMachine(
       },
       hasThreeVertices: (context, event) => {
         return context.stepOneVerticesCount === 3
+      },
+      hasNotAllTriangles: (context, event) => {
+        return context.stepOneTrianglesRestCount < 12
+      },
+      hasAllTriangles: (context, event) => {
+        return context.stepOneTrianglesRestCount === 12
       }
     },
     delays: {}

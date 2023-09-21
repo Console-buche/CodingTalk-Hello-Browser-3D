@@ -2,12 +2,13 @@ import { button, useControls } from 'leva'
 import { TalkMachineContext } from '../machines/talkMachine.context'
 
 export const Debug = () => {
-  const [state, event] = TalkMachineContext.useActor()
-  const leva = useControls({
+  const [_, event] = TalkMachineContext.useActor()
+  useControls({
     stepOne: button(() => event({ type: 'start' })),
     showOneVertex: button(() => event({ type: 'showOneVertex' })),
     oneVertexVisible: button(() => event({ type: 'addVertices' })),
-    finishBuilding: button(() => event({ type: 'addRestVertices' }))
+    finishBuildingWithEdges: button(() => event({ type: 'addRestVertices' })),
+    finishBuildingWithTriangles: button(() => event({ type: 'addRestTriangles' }))
   })
   return <></>
 }

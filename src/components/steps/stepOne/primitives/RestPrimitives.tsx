@@ -1,7 +1,7 @@
 import { GroupProps } from '@react-three/fiber'
 import { TalkMachineContext } from '../../../../machines/talkMachine.context'
 import { STEP_ONE_LINEPOINTS_REST, STEP_ONE_VERTICES_REST, STEP_ONE_TRIANGLES_REST } from '../stepOne.constants'
-import { Triangle } from './triangle/Triangle'
+import { Triangle } from './triangle/Triangle.1'
 import { VerticesMesh } from './vertice/Vertice'
 import { Edges } from './edge/Edges'
 

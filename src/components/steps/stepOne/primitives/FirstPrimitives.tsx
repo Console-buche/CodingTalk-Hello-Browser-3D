@@ -2,7 +2,7 @@ import { GroupProps } from '@react-three/fiber'
 import { TalkMachineContext } from '../../../../machines/talkMachine.context'
 import { STEP_ONE_LINEPOINTS, STEP_ONE_VERTICES } from '../stepOne.constants'
 import { Edges } from './edge/Edges'
-import { Triangle } from './triangle/Triangle'
+import { Triangle } from './triangle/Triangle.1'
 import { VerticesMesh } from './vertice/Vertice'
 
 export const FirstPrimitives = (props: GroupProps) => {

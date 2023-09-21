@@ -1,10 +1,11 @@
-import { Box, Text } from '@react-three/drei'
+import { Text } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
 import { useRef } from 'react'
 import { Group } from 'three'
 import { TalkMachineContext } from '../../../machines/talkMachine.context'
 import { FirstPrimitives } from './primitives/FirstPrimitives'
 import { RestPrimitives } from './primitives/RestPrimitives'
+import { Box } from './primitives/box/Box'
 
 export const StepOne = () => {
   const [state] = TalkMachineContext.useActor()
@@ -14,13 +15,13 @@ export const StepOne = () => {
     if (!ref.current) {
       return null
     }
-    ref.current.rotation.z += 0.001
+    // ref.current.rotation.z += 0.001
   })
 
   return (
     <>
       <group ref={ref}>
-        <Box args={[2, 2, 2]} position-z={-1} material-depthTest={false} material-transparent material-opacity={0.3} />
+        <Box />
         <FirstPrimitives />
         <RestPrimitives />
       </group>
