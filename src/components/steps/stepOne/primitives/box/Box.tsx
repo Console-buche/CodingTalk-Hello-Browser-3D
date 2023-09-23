@@ -7,14 +7,13 @@ import { Mesh } from 'three'
 export const Box = () => {
   const [state] = TalkMachineContext.useActor()
   const ref = useRef<Mesh>(null)
+
   const { opacity } = useSpring({
     opacity: state.matches('notStarted') ? 0.7 : 0,
     config: {
       duration: 1250
     }
   })
-
-  console.log(ref.current)
 
   return (
     <BoxPrimitive ref={ref} args={[2, 2, 2]} position-z={-1}>

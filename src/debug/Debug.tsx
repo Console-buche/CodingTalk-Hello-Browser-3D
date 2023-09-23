@@ -8,7 +8,11 @@ export const Debug = () => {
     showOneVertex: button(() => event({ type: 'showOneVertex' })),
     oneVertexVisible: button(() => event({ type: 'addVertices' })),
     finishBuildingWithEdges: button(() => event({ type: 'addRestVertices' })),
-    finishBuildingWithTriangles: button(() => event({ type: 'addRestTriangles' }))
+    finishBuildingWithTriangles: button(() => event({ type: 'addRestTriangles' })),
+    moveToStepTwo: button(() => event({ type: 'moveToStepTwo' })),
+    showWallOfBoxes: button(() => event({ type: 'showWallOfBoxes' })),
+
+    lightUpTheWall: button(() => event({ type: 'lightUpWallOfBoxes' }))
   })
   return <></>
 }

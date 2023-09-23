@@ -11,7 +11,6 @@ export const RestPrimitives = (props: GroupProps) => {
   const restTriangles = Array.from(STEP_ONE_TRIANGLES_REST.values())
   const restEdges = Array.from(STEP_ONE_LINEPOINTS_REST.values())
 
-  console.log(state.history)
   return (
     <group {...props}>
       {(state.matches({ stepOne: 'hasAllVertices' }) || state.context.stepOneVerticesRestCount === 8) && (

@@ -1,9 +1,15 @@
+import { Color, Euler, Vector2, Vector3 } from 'three'
 import { createMachine, assign } from 'xstate'
 
 export const talkMachine = createMachine(
   {
     context: {
+      currentStep: 0,
       codeSample: '',
+      color: new Color('black'),
+      camPosition: new Vector3(0, 0, 0),
+      rotationView: new Euler().setFromVector3(new Vector3(0, 0, 0.001)),
+      camTruck: new Vector2(0, 0),
       stepOneVerticesCount: 0,
       stepOneTrianglesRestCount: 0,
       stepOneVerticesRestCount: 0
@@ -23,7 +29,8 @@ export const talkMachine = createMachine(
         states: {
           helloWorld: {
             entry: assign(context => {
-              return { ...context, codeSample: 'This is not a triangle.' }
+              const camTruck = new Vector2(-2.5, 0)
+              return { ...context, camTruck, codeSample: 'This is not a triangle.' }
             }),
             on: {
               showOneVertex: {
@@ -36,6 +43,9 @@ export const talkMachine = createMachine(
             }
           },
           oneVertexVisible: {
+            entry: assign(context => {
+              return { ...context, codeSample: 'This is not a triangle.' }
+            }),
             on: {
               addVertices: {
                 target: 'isMissingVertices',
@@ -68,6 +78,14 @@ export const talkMachine = createMachine(
             }
           },
           hasThreeVertices: {
+            entry: assign(context => {
+              return { ...context }
+            }),
+            exit: assign(context => {
+              const camTruck = new Vector2(0.5, 0.5)
+              const rotationView = new Euler().setFromVector3(new Vector3(-0.003, 0, 0.003))
+              return { ...context, camTruck, rotationView }
+            }),
             on: {
               addRestVertices: {
                 target: 'hasNotAllVerticesShowing',
@@ -80,7 +98,7 @@ export const talkMachine = createMachine(
           },
           hasNotAllVerticesShowing: {
             after: {
-              '30': [
+              '300': [
                 {
                   target: '#talk.stepOne.hasNotAllVerticesShowing',
                   cond: 'hasNotAllVertices',
@@ -115,7 +133,7 @@ export const talkMachine = createMachine(
           },
           hasNotAllTrianglesShowing: {
             after: {
-              '500': [
+              '100': [
                 {
                   target: '#talk.stepOne.hasNotAllTrianglesShowing',
                   cond: 'hasNotAllTriangles',
@@ -151,8 +169,52 @@ export const talkMachine = createMachine(
                   type: 'addRestTriangle',
                   params: {}
                 }
+              },
+              moveToStepTwo: {
+                target: '#talk.stepTwo'
               }
             }
+          }
+        }
+      },
+      stepTwo: {
+        initial: 'helloWorld',
+        states: {
+          helloWorld: {
+            entry: assign(context => {
+              const camTruck = new Vector2(22.5, 0)
+              const color = new Color('#D5B0E3')
+              return { ...context, color, camTruck, codeSample: `Light is color. Wait?` }
+            }),
+            on: {
+              showWallOfBoxes: {
+                target: 'wallOfBoxesVisible',
+                actions: {
+                  type: 'showWallOfBoxes',
+                  params: {}
+                }
+              }
+            }
+          },
+          wallOfBoxesVisible: {
+            entry: assign(context => {
+              const currentStep = 1
+              const codeSample = `ToDo why black code`
+              return { ...context, currentStep, codeSample }
+            }),
+            on: {
+              lightUpWallOfBoxes: {
+                target: 'litUpWallOfBoxes'
+              }
+            }
+          },
+          litUpWallOfBoxes: {
+            entry: assign(context => {
+              const codeSample = `ToDo lit up code`
+              const currentStep = 2
+              return { ...context, currentStep, codeSample }
+            }),
+            on: {}
           }
         }
       }
@@ -164,6 +226,9 @@ export const talkMachine = createMachine(
         | { type: 'addVertices' }
         | { type: 'addRestVertices' }
         | { type: 'addRestTriangles' }
+        | { type: 'moveToStepTwo' }
+        | { type: 'showWallOfBoxes' }
+        | { type: 'lightUpWallOfBoxes' }
     },
     predictableActionArguments: true,
     preserveActionOrder: true

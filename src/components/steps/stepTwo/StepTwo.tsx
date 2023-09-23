@@ -1,13 +1,12 @@
-import { Text } from '@react-three/drei'
+import { Box } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
 import { useRef } from 'react'
 import { Group } from 'three'
 import { TalkMachineContext } from '../../../machines/talkMachine.context'
-import { FirstPrimitives } from './primitives/FirstPrimitives'
-import { RestPrimitives } from './primitives/RestPrimitives'
-import { Box } from './primitives/box/Box'
+import { Boxes } from './Boxes'
+import { MovingLight } from './MovingLight'
 
-export const StepOne = () => {
+export const StepTwo = () => {
   const [state] = TalkMachineContext.useActor()
   const ref = useRef<Group>(null)
 
@@ -15,17 +14,16 @@ export const StepOne = () => {
     if (!ref.current) {
       return null
     }
-    ref.current.rotation.x += state.context.rotationView.x
-    ref.current.rotation.y += state.context.rotationView.y
-    ref.current.rotation.z += state.context.rotationView.z
+    // ref.current.rotation.x += state.context.rotationView.x
+    // ref.current.rotation.y += state.context.rotationView.y
+    // ref.current.rotation.z += state.context.rotationView.z
   })
 
   return (
     <>
       <group ref={ref}>
-        <Box />
-        <FirstPrimitives />
-        <RestPrimitives />
+        <Boxes />
+        <MovingLight />
       </group>
       {/* <group position-y={-1}> */}
       {/*   <Text position={[0, -1, 0]}>{JSON.stringify(state.value)}</Text> */}
