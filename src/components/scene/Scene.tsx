@@ -19,7 +19,7 @@ export const Scene = () => {
       <Perf position="bottom-right" />
       <Cam />
       <Steps>
-        {state.context.currentStep === 0 && <StepOne />}
+        {state.context.currentStep < 0.5 && <StepOne />}
         <StepTwo />
       </Steps>
       <PostProcess />

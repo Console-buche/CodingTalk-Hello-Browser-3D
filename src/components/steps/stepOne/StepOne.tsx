@@ -1,8 +1,8 @@
-import { Text } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
 import { useRef } from 'react'
 import { Group } from 'three'
 import { TalkMachineContext } from '../../../machines/talkMachine.context'
+import { StepTitle } from '../StepTitle'
 import { FirstPrimitives } from './primitives/FirstPrimitives'
 import { RestPrimitives } from './primitives/RestPrimitives'
 import { Box } from './primitives/box/Box'
@@ -27,10 +27,8 @@ export const StepOne = () => {
         <FirstPrimitives />
         <RestPrimitives />
       </group>
-      {/* <group position-y={-1}> */}
-      {/*   <Text position={[0, -1, 0]}>{JSON.stringify(state.value)}</Text> */}
-      {/*   <Text position={[0, -2, 0]}>{JSON.stringify(state.matches({ stepOne: 'isMissingVertices' }))}</Text> */}
-      {/* </group> */}
+
+      <StepTitle value="hello world" step={1} px={-3} />
     </>
   )
 }

@@ -5,6 +5,7 @@ export const talkMachine = createMachine(
   {
     context: {
       currentStep: 0,
+      showStepTitle: true,
       codeSample: '',
       color: new Color('black'),
       camPosition: new Vector3(0, 0, 0),
@@ -30,7 +31,7 @@ export const talkMachine = createMachine(
           helloWorld: {
             entry: assign(context => {
               const camTruck = new Vector2(-2.5, 0)
-              return { ...context, camTruck, codeSample: 'This is not a triangle.' }
+              return { ...context, showStepTitle: false, camTruck, codeSample: 'This is not a triangle.' }
             }),
             on: {
               showOneVertex: {
@@ -44,7 +45,8 @@ export const talkMachine = createMachine(
           },
           oneVertexVisible: {
             entry: assign(context => {
-              return { ...context, codeSample: 'This is not a triangle.' }
+              const codeSample = `const vertex = new Vector3(x, y, z)`
+              return { ...context, codeSample }
             }),
             on: {
               addVertices: {
@@ -184,7 +186,21 @@ export const talkMachine = createMachine(
             entry: assign(context => {
               const camTruck = new Vector2(22.5, 0)
               const color = new Color('#D5B0E3')
-              return { ...context, color, camTruck, codeSample: `Light is color. Wait?` }
+              const currentStep = 0.5
+              return {
+                ...context,
+                color,
+                showStepTitle: true,
+                currentStep,
+                camTruck,
+                codeSample: ''
+              }
+            }),
+            exit: assign(context => {
+              return {
+                ...context,
+                showStepTitle: false
+              }
             }),
             on: {
               showWallOfBoxes: {

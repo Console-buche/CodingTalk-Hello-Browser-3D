@@ -1,28 +1,28 @@
-import { useState } from 'react'
-import { TalkMachineContext } from '../../../machines/talkMachine.context'
 import { a, useTrail } from '@react-spring/three'
+import { useState } from 'react'
 import {
   MeshBasicMaterial,
   MeshLambertMaterial,
+  MeshMatcapMaterial,
   MeshNormalMaterial,
   MeshPhongMaterial,
   MeshStandardMaterial,
   MeshToonMaterial
 } from 'three'
-import { Plane } from '@react-three/drei'
+import { TalkMachineContext } from '../../../machines/talkMachine.context'
 
 const POSITIONS_X = [19, 21, 23, 19, 21, 23, 19, 21, 23]
-const POSITIONS_Y = [2, 2, 2, 0, 0, 0, -2, -2, -2]
+const POSITIONS_Y = [1.5, 1.5, 1.5, -0.5, -0.5, -0.5, -2.5, -2.5, -2.5]
 const MATERIALS = [
-  new MeshBasicMaterial({ color: 'blue' }),
-  new MeshBasicMaterial({ color: 'blue' }),
-  new MeshBasicMaterial({ color: 'blue' }),
-  new MeshBasicMaterial({ color: 'blue' }),
   new MeshPhongMaterial({ color: 'blue' }),
+  new MeshBasicMaterial({ color: 'blue' }),
+  new MeshToonMaterial({ color: 'green' }),
+  new MeshBasicMaterial({ color: 'blue' }),
   new MeshLambertMaterial({ color: 'blue' }),
-  new MeshNormalMaterial({}),
+  new MeshBasicMaterial({ color: 'blue' }),
   new MeshStandardMaterial({ color: 'blue' }),
-  new MeshToonMaterial({ color: 'green' })
+  new MeshMatcapMaterial({ color: 'blue' }),
+  new MeshNormalMaterial({})
 ]
 
 export const Boxes = () => {
