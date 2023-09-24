@@ -11,8 +11,8 @@ export const Debug = () => {
     finishBuildingWithTriangles: button(() => event({ type: 'addRestTriangles' })),
     moveToStepTwo: button(() => event({ type: 'moveToStepTwo' })),
     showWallOfBoxes: button(() => event({ type: 'showWallOfBoxes' })),
-
-    lightUpTheWall: button(() => event({ type: 'lightUpWallOfBoxes' }))
+    lightUpTheWall: button(() => event({ type: 'lightUpWallOfBoxes' })),
+    showTextures: button(() => event({ type: 'texturesVisible' }))
   })
   return <></>
 }

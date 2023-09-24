@@ -230,7 +230,18 @@ export const talkMachine = createMachine(
               const currentStep = 2
               return { ...context, currentStep, codeSample }
             }),
-            on: {}
+            on: {
+              texturesVisible: {
+                target: 'texturesVisible'
+              }
+            }
+          },
+          texturesVisible: {
+            entry: assign(context => {
+              const codeSample = `TODO textures visible`
+              const currentStep = 2.5
+              return { ...context, currentStep, codeSample }
+            })
           }
         }
       }
@@ -245,6 +256,7 @@ export const talkMachine = createMachine(
         | { type: 'moveToStepTwo' }
         | { type: 'showWallOfBoxes' }
         | { type: 'lightUpWallOfBoxes' }
+        | { type: 'texturesVisible' }
     },
     predictableActionArguments: true,
     preserveActionOrder: true
