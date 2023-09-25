@@ -57,7 +57,7 @@ export const Boxes = () => {
       {/* <InstancedFollowers count={5400} /> */}
 
       {trail.map(({ scale, roty }, index) => (
-        <RigidBody colliders="cuboid" shape="cuboid" density={10}>
+        <RigidBody key={`boxes-${index}`} colliders="cuboid" shape="cuboid" density={10}>
           <a.mesh
             material={MATERIALS[index]}
             castShadow

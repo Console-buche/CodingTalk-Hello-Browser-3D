@@ -1,6 +1,7 @@
 import { SpotLight } from '@react-three/drei'
 import { useEffect, useRef } from 'react'
 import { type SpotLight as SpotL } from 'three'
+import { ScientistModel } from './ScientistModel'
 
 export const StepFour = () => {
   const ref = useRef<SpotL>(null)
@@ -24,6 +25,7 @@ export const StepFour = () => {
         attenuation={4.75}
         position={[20, 0.1, 30]}
       />
+      <ScientistModel position={[20, -3.4, 30.5]} scale={0.03} />
     </>
   )
 }

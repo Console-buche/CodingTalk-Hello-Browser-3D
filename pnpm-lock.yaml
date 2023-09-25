@@ -53,6 +53,9 @@ dependencies:
   three:
     specifier: ^0.156.1
     version: 0.156.1
+  three-stdlib:
+    specifier: ^2.26.6
+    version: 2.26.6(three@0.156.1)
   xstate:
     specifier: ^4.38.2
     version: 4.38.2

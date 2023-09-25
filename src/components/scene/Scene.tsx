@@ -15,6 +15,9 @@ import { Player } from './Player'
 import { PostProcess } from '../postprocess.tsx'
 import { Floor } from './Floor.tsx'
 
+//TODO: move the access to state away from root component to restore the perf
+//FIXME: READ ABoVE
+//
 export const Scene = () => {
   const [state] = TalkMachineContext.useActor()
   return (
@@ -44,7 +47,7 @@ export const Scene = () => {
               {state.context.currentStep < 0.5 && <StepOne />}
               <StepTwo />
               <StepThree />
-              <StepFour />
+              {state.context.currentStep >= 4 && <StepFour />}
             </Steps>
             <Player />
             <Floor />
