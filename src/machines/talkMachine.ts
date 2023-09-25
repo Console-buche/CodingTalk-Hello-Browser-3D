@@ -198,10 +198,12 @@ export const talkMachine = createMachine(
               }
             }),
             exit: assign(context => {
-              const camDolly = -3
+              const camDolly = -1
+              const camTruck = new Vector2(0, 1)
               return {
                 ...context,
                 camDolly,
+                camTruck,
                 showStepTitle: false
               }
             }),

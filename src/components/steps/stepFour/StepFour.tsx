@@ -9,7 +9,7 @@ export const StepFour = () => {
     if (!ref.current) {
       return
     }
-    ref.current.target.position.set(20, 0, 10)
+    ref.current.target.position.set(20, 0, 30)
     ref.current.target.updateMatrixWorld()
   }, [ref.current])
 
@@ -18,11 +18,11 @@ export const StepFour = () => {
       <SpotLight
         opacity={0.3}
         distance={7}
-        angle={0.25}
+        angle={0.45}
         ref={ref}
-        intensity={10}
+        intensity={15}
         attenuation={4.75}
-        position={[20, 0.1, 10]}
+        position={[20, 0.1, 30]}
       />
     </>
   )

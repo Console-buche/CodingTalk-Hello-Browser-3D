@@ -44,50 +44,48 @@ export const MovingLight = () => {
   return (
     <>
       <a.ambientLight intensity={ambientIntensity} />
-      <a.group position-y={py}>
-        <Sphere ref={ref} position={[0, 0, 0]} args={[0.01, 32, 32]}>
-          <meshStandardMaterial color={0xffffff} emissive={'0xffffff'} emissiveIntensity={2} side={BackSide} />
+      <Sphere ref={ref} position={[0, 0, 0]} args={[0.01, 32, 32]}>
+        <meshStandardMaterial color={0xffffff} emissive={'0xffffff'} emissiveIntensity={2} side={BackSide} />
 
-          <a.pointLight
-            intensity={intensity}
-            power={power}
-            distance={distance}
-            decay={1.5}
-            color="brown"
-            castShadow
-            shadow-mapSize-width={1024}
-            shadow-mapSize-height={1024}
-          />
-        </Sphere>
-        <Sphere ref={refTwo} position={[0, 0, 0]} args={[0.01, 32, 32]}>
-          <meshStandardMaterial color={0xffffff} emissive={'0xffffff'} emissiveIntensity={2} side={BackSide} />
+        <a.pointLight
+          intensity={intensity}
+          power={power}
+          distance={distance}
+          decay={1.5}
+          color="brown"
+          castShadow
+          shadow-mapSize-width={1024}
+          shadow-mapSize-height={1024}
+        />
+      </Sphere>
+      <Sphere ref={refTwo} position={[0, 0, 0]} args={[0.01, 32, 32]}>
+        <meshStandardMaterial color={0xffffff} emissive={'0xffffff'} emissiveIntensity={2} side={BackSide} />
 
-          <a.pointLight
-            intensity={intensity}
-            power={power}
-            color="pink"
-            distance={distance}
-            decay={1.5}
-            castShadow
-            shadow-mapSize-width={1024}
-            shadow-mapSize-height={1024}
-          />
-        </Sphere>
-        <Sphere ref={refThree} position={[0, 0, 0]} args={[0.01, 32, 32]}>
-          <meshStandardMaterial color={0xffffff} emissive={'0xffffff'} emissiveIntensity={2} side={BackSide} />
+        <a.pointLight
+          intensity={intensity}
+          power={power}
+          color="pink"
+          distance={distance}
+          decay={1.5}
+          castShadow
+          shadow-mapSize-width={1024}
+          shadow-mapSize-height={1024}
+        />
+      </Sphere>
+      <Sphere ref={refThree} position={[0, 0, 0]} args={[0.01, 32, 32]}>
+        <meshStandardMaterial color={0xffffff} emissive={'0xffffff'} emissiveIntensity={2} side={BackSide} />
 
-          <a.pointLight
-            intensity={intensity}
-            power={power}
-            color={'yellow'}
-            distance={distance}
-            decay={1.5}
-            castShadow
-            shadow-mapSize-width={1024}
-            shadow-mapSize-height={1024}
-          />
-        </Sphere>
-      </a.group>
+        <a.pointLight
+          intensity={intensity}
+          power={power}
+          color={'yellow'}
+          distance={distance}
+          decay={1.5}
+          castShadow
+          shadow-mapSize-width={1024}
+          shadow-mapSize-height={1024}
+        />
+      </Sphere>
     </>
   )
 }
