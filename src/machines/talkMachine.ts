@@ -5,6 +5,7 @@ export const talkMachine = createMachine(
   {
     context: {
       currentStep: 0,
+      camDolly: 0,
       showStepTitle: true,
       codeSample: '',
       color: new Color('black'),
@@ -197,8 +198,10 @@ export const talkMachine = createMachine(
               }
             }),
             exit: assign(context => {
+              const camDolly = -3
               return {
                 ...context,
+                camDolly,
                 showStepTitle: false
               }
             }),
@@ -253,6 +256,19 @@ export const talkMachine = createMachine(
               const codeSample = `TODO unpauseGravity`
               const currentStep = 3
               return { ...context, currentStep, codeSample }
+            }),
+            on: {
+              fadeToBlack: {
+                target: 'fadeToBlack'
+              }
+            }
+          },
+          fadeToBlack: {
+            entry: assign(context => {
+              const codeSample = `TODO fadeToBlack`
+              const currentStep = 4
+              const color = new Color('black')
+              return { ...context, currentStep, color, codeSample }
             })
           }
         }
@@ -270,6 +286,7 @@ export const talkMachine = createMachine(
         | { type: 'lightUpWallOfBoxes' }
         | { type: 'texturesVisible' }
         | { type: 'unpausedGravity' }
+        | { type: 'fadeToBlack' }
     },
     predictableActionArguments: true,
     preserveActionOrder: true

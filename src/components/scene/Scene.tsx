@@ -1,17 +1,19 @@
-import { Canvas } from '@react-three/fiber'
-import { Perf } from 'r3f-perf'
-import { Cam } from '../../cam/Cam'
-import { Steps } from '../steps/Steps'
-import { StepOne } from '../steps/stepOne/StepOne'
-import { StepTwo } from '../steps/stepTwo/StepTwo'
-import { PostProcess } from '../postprocess'
-import { TalkMachineContext } from '../../machines/talkMachine.context'
-import { Color } from './Color.tsx'
-import { CuboidCollider, Physics } from '@react-three/rapier'
-import { Suspense } from 'react'
-import { StepThree } from '../steps/stepThree/StepThree.tsx'
 import { KeyboardControls, PointerLockControls } from '@react-three/drei'
+import { Canvas } from '@react-three/fiber'
+import { Physics } from '@react-three/rapier'
+import { Perf } from 'r3f-perf'
+import { Suspense } from 'react'
+import { Cam } from '../../cam/Cam'
+import { TalkMachineContext } from '../../machines/talkMachine.context'
+import { Steps } from '../steps/Steps'
+import { StepFour } from '../steps/stepFour/StepFour.tsx'
+import { StepOne } from '../steps/stepOne/StepOne'
+import { StepThree } from '../steps/stepThree/StepThree.tsx'
+import { StepTwo } from '../steps/stepTwo/StepTwo'
+import { Color } from './Color.tsx'
 import { Player } from './Player'
+import { PostProcess } from '../postprocess.tsx'
+import { Floor } from './Floor.tsx'
 
 export const Scene = () => {
   const [state] = TalkMachineContext.useActor()
@@ -26,10 +28,13 @@ export const Scene = () => {
       ]}
     >
       <Canvas
+        dpr={[1, 2]}
         shadows
+        flat
         gl={{ alpha: true, antialias: true }}
         style={{ position: 'absolute', top: 0, left: 0, width: '100vw', height: '100vh' }}
       >
+        {/* <ambientLight intensity={0.015} /> */}
         <Color />
         <Perf position="bottom-right" />
         {state.context.currentStep < 3 && <Cam />}
@@ -39,14 +44,15 @@ export const Scene = () => {
               {state.context.currentStep < 0.5 && <StepOne />}
               <StepTwo />
               <StepThree />
+              <StepFour />
             </Steps>
             <Player />
-            {/* Floor */}
-            <CuboidCollider position={[0, -4.5, 0]} args={[110, 1, 110]} />
+            <Floor />
           </Physics>
         </Suspense>
+
+        {state.context.currentStep >= 3 && <PointerLockControls />}
         <PostProcess />
-        <PointerLockControls />
       </Canvas>
     </KeyboardControls>
   )

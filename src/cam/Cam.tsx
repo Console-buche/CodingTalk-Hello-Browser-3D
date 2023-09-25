@@ -12,10 +12,15 @@ export const Cam = () => {
 
   useEffect(() => {
     if (cameraControlsRef.current) {
-      console.log('trucking')
       cameraControlsRef.current.truck(...state.context.camTruck.toArray(), true)
     }
   }, [state.context.camTruck])
+
+  useEffect(() => {
+    if (cameraControlsRef.current) {
+      cameraControlsRef.current.dolly(state.context.camDolly, true)
+    }
+  }, [, state.context.camDolly])
 
   return <CameraControls truckSpeed={0.001} ref={cameraControlsRef} />
 }
