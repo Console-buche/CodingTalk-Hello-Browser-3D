@@ -13,17 +13,20 @@ import {
 } from 'three'
 import { TalkMachineContext } from '../../../machines/talkMachine.context'
 import Manu from '/tex0.jpg'
+import { NonInstancedFollowers } from './NonInstancedBoxes'
+import { InstancedFollowers } from './InstancedBoxes'
+import { Physics, RigidBody } from '@react-three/rapier'
 
 const POSITIONS_X = [19, 21, 23, 19, 21, 23, 19, 21, 23]
 const POSITIONS_Y = [1.5, 1.5, 1.5, -0.5, -0.5, -0.5, -2.5, -2.5, -2.5]
 const MATERIALS = [
-  new MeshPhongMaterial({ color: 'blue' }),
+  new MeshPhongMaterial({ color: 'blue', emissiveIntensity: 2 }),
   new MeshBasicMaterial({ color: 'blue' }),
-  new MeshToonMaterial({ color: 'green' }),
+  new MeshToonMaterial({ color: 'green', emissiveIntensity: 2 }),
   new MeshBasicMaterial({ color: 'blue' }),
-  new MeshLambertMaterial({ color: 'blue' }),
+  new MeshLambertMaterial({ color: 'blue', emissiveIntensity: 2 }),
   new MeshBasicMaterial({ color: 'blue' }),
-  new MeshStandardMaterial({ color: 'blue' }),
+  new MeshStandardMaterial({ color: 'blue', emissiveIntensity: 2 }),
   new MeshMatcapMaterial({ color: 'blue' }),
   new MeshNormalMaterial({})
 ]
@@ -56,17 +59,28 @@ export const Boxes = () => {
         <boxGeometry args={[1, 1, 1]} />
         <meshBasicMaterial />
       </mesh>
+      {/* <NonInstancedFollowers count={7400} /> */}
+      {/* <InstancedFollowers count={5400} /> */}
       {trail.map(({ scale, roty }, index) => (
-        <a.mesh
-          material={MATERIALS[index]}
-          scale={scale}
-          rotation-y={roty}
-          position-x={POSITIONS_X[index]}
-          position-y={POSITIONS_Y[index]}
-        >
-          <Plane material-map={TEX[index]} renderOrder={2} material-depthTest={false} position-z={0.5} />
-          <boxGeometry args={[1, 1, 1]} />
-        </a.mesh>
+        <RigidBody colliders="cuboid" shape="cuboid" density={10}>
+          <a.mesh
+            material={MATERIALS[index]}
+            scale={scale}
+            rotation-y={roty}
+            position-x={POSITIONS_X[index]}
+            position-y={POSITIONS_Y[index]}
+          >
+            <Plane renderOrder={2} position-z={0.5}>
+              <meshStandardMaterial
+                map={TEX[index]}
+                emissiveMap={TEX[index]}
+                emissiveIntensity={2}
+                toneMapped={false}
+              />
+            </Plane>
+            <boxGeometry args={[1, 1, 1]} />
+          </a.mesh>
+        </RigidBody>
       ))}
     </>
   )

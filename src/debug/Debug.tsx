@@ -12,7 +12,8 @@ export const Debug = () => {
     moveToStepTwo: button(() => event({ type: 'moveToStepTwo' })),
     showWallOfBoxes: button(() => event({ type: 'showWallOfBoxes' })),
     lightUpTheWall: button(() => event({ type: 'lightUpWallOfBoxes' })),
-    showTextures: button(() => event({ type: 'texturesVisible' }))
+    showTextures: button(() => event({ type: 'texturesVisible' })),
+    unpausedGravity: button(() => event({ type: 'unpausedGravity' }))
   })
   return <></>
 }

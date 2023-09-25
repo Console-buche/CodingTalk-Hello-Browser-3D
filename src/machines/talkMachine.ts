@@ -241,6 +241,18 @@ export const talkMachine = createMachine(
               const codeSample = `TODO textures visible`
               const currentStep = 2.5
               return { ...context, currentStep, codeSample }
+            }),
+            on: {
+              unpausedGravity: {
+                target: 'unpausedGravity'
+              }
+            }
+          },
+          unpausedGravity: {
+            entry: assign(context => {
+              const codeSample = `TODO unpauseGravity`
+              const currentStep = 3
+              return { ...context, currentStep, codeSample }
             })
           }
         }
@@ -257,6 +269,7 @@ export const talkMachine = createMachine(
         | { type: 'showWallOfBoxes' }
         | { type: 'lightUpWallOfBoxes' }
         | { type: 'texturesVisible' }
+        | { type: 'unpausedGravity' }
     },
     predictableActionArguments: true,
     preserveActionOrder: true

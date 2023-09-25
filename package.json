@@ -11,11 +11,13 @@
   },
   "dependencies": {
     "@codemirror/lang-javascript": "^6.2.1",
+    "@dimforge/rapier3d-compat": "^0.11.2",
     "@react-spring/three": "^9.7.3",
     "@react-spring/web": "^9.7.3",
     "@react-three/drei": "^9.83.9",
     "@react-three/fiber": "^8.14.1",
     "@react-three/postprocessing": "^2.15.1",
+    "@react-three/rapier": "1.0.0",
     "@types/three": "^0.156.0",
     "@uiw/react-codemirror": "^4.21.13",
     "@xstate/react": "^3.2.2",

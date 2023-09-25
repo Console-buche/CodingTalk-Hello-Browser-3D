@@ -12,7 +12,7 @@ export const MovingLight = () => {
   const refThree = useRef<Mesh>(null)
 
   const { py } = useSpring({
-    py: state.context.currentStep >= 2 ? 0 : -50,
+    py: state.context.currentStep >= 2 ? 0 : -20,
     config: {
       duration: 750,
       easing: easings.easeOutSine
@@ -20,7 +20,7 @@ export const MovingLight = () => {
   })
 
   useFrame(() => {
-    if (!ref.current || !refTwo.current || !refThree.current) {
+    if (!ref.current || !refTwo.current || !refThree.current || state.context.currentStep < 2) {
       return null
     }
 
