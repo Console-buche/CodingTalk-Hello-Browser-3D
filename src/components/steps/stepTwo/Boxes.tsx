@@ -1,5 +1,4 @@
-import { a, useTrail } from '@react-spring/three'
-import { Plane } from '@react-three/drei'
+import { useTrail } from '@react-spring/three'
 import { RigidBody } from '@react-three/rapier'
 import { useContext, useEffect, useMemo, useState } from 'react'
 import {
@@ -10,11 +9,14 @@ import {
   MeshPhongMaterial,
   MeshStandardMaterial,
   MeshToonMaterial,
-  TextureLoader
+  TextureLoader,
+  Vector3
 } from 'three'
 import { TalkMachineContext } from '../../../machines/talkMachine.context'
 import Manu from '/tex0.jpg'
 import { PhysicsContext } from '../../scene/Scene'
+import { Boxe } from './Boxe'
+import { Box, Sphere } from '@react-three/drei'
 
 const POSITIONS_X = [19, 21, 23, 19, 21, 23, 19, 21, 23]
 const POSITIONS_Y = [1.5, 1.5, 1.5, -0.5, -0.5, -0.5, -2.5, -2.5, -2.5]
@@ -59,6 +61,17 @@ export const Boxes = () => {
     }
   })
 
+  const AThousandBoxes = useMemo(
+    () =>
+      Array.from({ length: 100 }, (_, i) => ({
+        index: `AThousandBoxes${i}`,
+        position: new Vector3(15 + Math.random() * 30, 15 + Math.random() * i, 1 + Math.random() * -10),
+        rotation: [Math.random() * 10, Math.random() * 10, Math.random() * 10],
+        density: 3 + Math.random() * 15
+      })),
+    []
+  )
+
   return (
     <>
       {/* <NonInstancedFollowers count={7400} /> */}
@@ -66,26 +79,37 @@ export const Boxes = () => {
 
       {trail.map(({ scale, roty }, index) => (
         <RigidBody key={`boxes-${index}`} colliders="cuboid" shape="cuboid" density={10}>
-          <a.mesh
+          <Boxe
             material={MATERIALS[index]}
-            castShadow
+            posx={POSITIONS_X[index]}
+            posy={POSITIONS_Y[index]}
+            tex={TEX[index]}
             scale={scale}
-            rotation-y={roty}
-            position-x={POSITIONS_X[index]}
-            position-y={POSITIONS_Y[index]}
-          >
-            <Plane renderOrder={2} position-z={0.5}>
-              <meshStandardMaterial
-                map={TEX[index]}
-                emissiveMap={TEX[index]}
-                emissiveIntensity={2}
-                depthTest={false}
-                toneMapped={false}
-              />
-            </Plane>
-            <boxGeometry args={[1, 1, 1]} />
-          </a.mesh>
+            roty={roty}
+            index={index}
+          />
         </RigidBody>
+      ))}
+
+      {AThousandBoxes.map(({ index, position, rotation }, i) => (
+        <>
+          {i % 2 === 0 ? (
+            <RigidBody
+              key={index}
+              rotation={rotation}
+              position={position}
+              colliders="cuboid"
+              shape="cuboid"
+              density={10}
+            >
+              <Box material={MATERIALS[6]} />{' '}
+            </RigidBody>
+          ) : (
+            <RigidBody key={index} rotation={rotation} position={position} colliders="ball" shape="ball" density={10}>
+              <Sphere material={MATERIALS[6]} />
+            </RigidBody>
+          )}
+        </>
       ))}
     </>
   )
