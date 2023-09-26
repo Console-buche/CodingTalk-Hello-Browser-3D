@@ -17,6 +17,7 @@ import Manu from '/tex0.jpg'
 import { PhysicsContext } from '../../scene/Scene'
 import { Boxe } from './Boxe'
 import { Box, Sphere } from '@react-three/drei'
+import { InstancedFollowers } from './InstancedBoxes'
 
 const POSITIONS_X = [19, 21, 23, 19, 21, 23, 19, 21, 23]
 const POSITIONS_Y = [1.5, 1.5, 1.5, -0.5, -0.5, -0.5, -2.5, -2.5, -2.5]

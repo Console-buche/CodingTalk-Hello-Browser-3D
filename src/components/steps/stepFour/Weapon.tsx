@@ -7,7 +7,7 @@ Files: psycanon.gltf [8.68MB] > psycanon-transformed.glb [489.5KB] (94%)
 import { useSpring, easings, a } from '@react-spring/three'
 import { useGLTF } from '@react-three/drei'
 import { useFrame } from '@react-three/fiber'
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import * as THREE from 'three'
 import { GLTF } from 'three-stdlib'
 import { TalkMachineContext } from '../../../machines/talkMachine.context'
@@ -29,7 +29,8 @@ type GLTFResult = GLTF & {
 export function PsyCanon(props: JSX.IntrinsicElements['group']) {
   const { nodes, materials } = useGLTF('/psycanon-transformed.glb') as GLTFResult
   const refCanon = useRef<THREE.Group>(null)
-
+  const [isHolding, setIsHolding] = useState(false)
+  const refSpin = useRef<THREE.Mesh>(null)
   const [state] = TalkMachineContext.useActor()
 
   const { posy } = useSpring({
@@ -40,13 +41,32 @@ export function PsyCanon(props: JSX.IntrinsicElements['group']) {
     }
   })
 
-  useFrame(({ clock }) => {
-    if (!refCanon.current) {
+  useFrame(({ camera, clock }) => {
+    if (!refCanon.current || !refSpin.current) {
+      return
+    }
+
+    refSpin.current.rotateY(0.1)
+    if (isHolding) {
+      const lookAtPos = camera.position.clone().add(camera.getWorldDirection(new THREE.Vector3()).multiplyScalar(10))
+      refCanon.current.lookAt(lookAtPos)
+      const offset = new THREE.Vector3(0, -0.3, -0.3) // Adjust these values
+      offset.applyQuaternion(camera.quaternion)
+      const pos = camera.position.clone().add(offset)
+      refCanon.current.position.copy(pos)
+      // refCanon.current.rotation.z = camera.rotation.z
+      // ii
+      //
+      //
       return
     }
 
     refCanon.current.rotation.y += 0.01
     refCanon.current.position.y = Math.sin(clock.getElapsedTime()) * 0.1 + props.position[1]
+
+    if (!isHolding && camera.position.distanceTo(refCanon.current.position) < 1.5) {
+      setIsHolding(true)
+    }
   })
 
   return (
@@ -79,6 +99,7 @@ export function PsyCanon(props: JSX.IntrinsicElements['group']) {
         scale={0.733}
       />
       <mesh
+        ref={refSpin}
         name="Object_10"
         geometry={nodes.Object_10.geometry}
         material={materials.material_3}

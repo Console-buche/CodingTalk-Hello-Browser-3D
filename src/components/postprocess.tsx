@@ -4,7 +4,7 @@ import { TalkMachineContext } from '../machines/talkMachine.context'
 export const PostProcess = () => {
   const [state] = TalkMachineContext.useActor()
 
-  if (state.context.currentStep >= 4) {
+  if (state.context.currentStep >= 4 && state.context.currentStep < 6) {
     return null
   }
 
