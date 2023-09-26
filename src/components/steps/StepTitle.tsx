@@ -4,15 +4,19 @@ import { TalkMachineContext } from '../../machines/talkMachine.context'
 
 type StepTitle = {
   value: string
-  step: number
+  step: number // used for display
+  contextStep: number // used for syncing machine
   px: number
+  pz?: number
+  ry?: number
 }
 
-export const StepTitle = ({ value, step, px }: StepTitle) => {
+export const StepTitle = ({ value, step, px, pz, ry, contextStep }: StepTitle) => {
   const [state] = TalkMachineContext.useActor()
 
+  console.log(contextStep, state.context.currentStep)
   const { opacity } = useSpring({
-    opacity: state.context.showStepTitle ? 1 : 0,
+    opacity: state.context.showStepTitle && state.context.currentStep === contextStep ? 1 : 0,
     config: {
       duration: 750,
       easing: easings.easeOutSine
@@ -20,13 +24,13 @@ export const StepTitle = ({ value, step, px }: StepTitle) => {
   })
 
   return (
-    <group position-y={-2}>
-      <Text outlineWidth={0.025} outlineColor={'white'} position-x={px} fontSize={5}>
+    <group position-y={-2} rotation-y={ry} position-z={pz} position-x={px}>
+      <Text outlineWidth={0.025} outlineColor={'white'} fontSize={5}>
         {/* @ts-ignore */}
         <a.meshBasicMaterial depthTest={false} color={state.context.color} opacity={opacity} transparent />
         {step}.
       </Text>
-      <Text position-y={-0.25} position-x={px + 1} fontSize={1} anchorX="left">
+      <Text position-y={-0.25} fontSize={1} position-x={1} anchorX="left">
         <a.meshBasicMaterial depthTest={false} opacity={opacity} transparent />
         {value}
       </Text>

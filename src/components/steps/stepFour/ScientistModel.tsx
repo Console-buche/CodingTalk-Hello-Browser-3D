@@ -12,6 +12,7 @@ import React, { useEffect, useRef } from 'react'
 import { useGLTF, useAnimations } from '@react-three/drei'
 import { type GLTF } from 'three-stdlib'
 import { useFrame } from '@react-three/fiber'
+import { TalkMachineContext } from '../../../machines/talkMachine.context'
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -159,26 +160,35 @@ type ActionName =
   | 'yes'
 type GLTFActions = Record<ActionName, THREE.AnimationAction>
 
-type ContextType = Record<
-  string,
-  React.ForwardRefExoticComponent<JSX.IntrinsicElements['skinnedMesh'] | JSX.IntrinsicElements['bone']>
->
-
 export function ScientistModel(props: JSX.IntrinsicElements['group']) {
+  const [state, event] = TalkMachineContext.useActor()
   const group = useRef<THREE.Group>()
   const { nodes, materials, animations } = useGLTF('/scientist_rigged__animated.glb') as GLTFResult
-  const { actions, mixer } = useAnimations<GLTFActions>(animations, group)
+  const { actions } = useAnimations<GLTFActions>(animations, group)
+
+  const [anim, setAnim] = React.useState<ActionName>('wave')
 
   const lookAt = useRef(new THREE.Vector3())
 
   useEffect(() => {
-    actions.wave.play()
-    mixer.timeScale = 0.5
-  }, [])
+    actions[anim].reset().fadeIn(0.5).play()
+    actions[anim].timeScale = 0.5
 
-  useFrame((state, delta) => {
+    if (anim === 'idle5') {
+      event({ type: 'triggerDialog' })
+    }
+
+    return () => {
+      actions[anim].fadeOut(0.5)
+    }
+  }, [anim])
+
+  useFrame(state => {
     if (!group.current) {
       return null
+    }
+    if (state.camera.position.distanceTo(group.current.position) < 5 && anim !== 'idle5') {
+      setAnim('idle5')
     }
     lookAt.current.copy(state.camera.position).setY(group.current.position.y)
     group.current.lookAt(lookAt.current)

@@ -1,0 +1,17 @@
+.dialog {
+  width: 500px;
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  font-size: 1.25rem;
+  gap: 2rem;
+}
+
+.dialog-name {
+  font-weight: bold;
+}
+
+.dialog-message {
+  margin: 0;
+  font-weight: 400;
+}

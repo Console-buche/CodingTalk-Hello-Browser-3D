@@ -92,24 +92,17 @@ export const Boxes = () => {
       ))}
 
       {AThousandBoxes.map(({ index, position, rotation }, i) => (
-        <>
+        <group key={index}>
           {i % 2 === 0 ? (
-            <RigidBody
-              key={index}
-              rotation={rotation}
-              position={position}
-              colliders="cuboid"
-              shape="cuboid"
-              density={10}
-            >
+            <RigidBody rotation={rotation} position={position} colliders="cuboid" shape="cuboid" density={10}>
               <Box material={MATERIALS[6]} />{' '}
             </RigidBody>
           ) : (
-            <RigidBody key={index} rotation={rotation} position={position} colliders="ball" shape="ball" density={10}>
+            <RigidBody rotation={rotation} position={position} colliders="ball" shape="ball" density={10}>
               <Sphere material={MATERIALS[6]} />
             </RigidBody>
           )}
-        </>
+        </group>
       ))}
     </>
   )

@@ -20,7 +20,8 @@ export const StepTwo = () => {
         <Boxes />
         <MovingLight />
       </group>
-      <StepTitle value="lights and colors" step={2} px={18} />
+      <StepTitle value="lights and colors" step={1} px={18} contextStep={0.5} />
+      <StepTitle value="physics and events" step={2} px={27} pz={-3} contextStep={2.5} />
     </>
   )
 }

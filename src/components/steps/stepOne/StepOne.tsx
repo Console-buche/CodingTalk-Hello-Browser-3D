@@ -31,7 +31,7 @@ export const StepOne = () => {
         <RestPrimitives />
       </group>
 
-      <StepTitle value="hello world" step={1} px={-3} />
+      <StepTitle value="hello world" step={0} px={-3} contextStep={0} />
     </>
   )
 }

@@ -44,7 +44,7 @@ export const Scene = () => {
         <PhysicsContext.Provider value={{ setIsPhysicsPaused }}>
           {/* <ambientLight intensity={0.015} /> */}
           <Color />
-          <Perf position="bottom-right" />
+          {/* <Perf position="bottom-right" /> */}
           <Cam />
           <Suspense>
             <Physics interpolate paused={isPhysicsPaused}>

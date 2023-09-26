@@ -32,7 +32,8 @@ export const talkMachine = createMachine(
           helloWorld: {
             entry: assign(context => {
               const camTruck = new Vector2(-2.5, 0)
-              return { ...context, showStepTitle: false, camTruck, codeSample: 'This is not a triangle.' }
+              const codeSample = `<Canvas />`
+              return { ...context, codeSample, showStepTitle: false, camTruck }
             }),
             on: {
               showOneVertex: {
@@ -122,7 +123,7 @@ export const talkMachine = createMachine(
           },
           hasAllVertices: {
             exit: assign(context => {
-              return { ...context, codeSample: 'Painting faces!' }
+              return { ...context }
             }),
             on: {
               addRestTriangles: {
@@ -220,8 +221,7 @@ export const talkMachine = createMachine(
           wallOfBoxesVisible: {
             entry: assign(context => {
               const currentStep = 1
-              const codeSample = `ToDo why black code`
-              return { ...context, currentStep, codeSample }
+              return { ...context, currentStep }
             }),
             on: {
               lightUpWallOfBoxes: {
@@ -231,7 +231,23 @@ export const talkMachine = createMachine(
           },
           litUpWallOfBoxes: {
             entry: assign(context => {
-              const codeSample = `ToDo lit up code`
+              const codeSample = `// lights
+<pointLight />
+<ambientLight />
+<directionalLight />
+<spotLight />
+<hemisphereLight />
+
+// materials
+<meshBasicMaterial />
+<meshLambertMaterial />
+<meshNormalMaterial />
+<meshPhongMaterial />
+<meshStandardMaterial />
+<meshToonMaterial />
+<pointsMaterial />
+<shaderMaterial />
+<lineBasicMaterial />`
               const currentStep = 2
               return { ...context, currentStep, codeSample }
             }),
@@ -243,9 +259,11 @@ export const talkMachine = createMachine(
           },
           texturesVisible: {
             entry: assign(context => {
-              const codeSample = `TODO textures visible`
+              const color = new Color('purple')
               const currentStep = 2.5
-              return { ...context, currentStep, codeSample }
+              const camTruck = new Vector2(3.5, -0.5)
+              const camDolly = -1
+              return { ...context, camDolly, camTruck, codeSample: '', color, showStepTitle: true, currentStep }
             }),
             on: {
               unpausedGravity: {
@@ -255,9 +273,12 @@ export const talkMachine = createMachine(
           },
           unpausedGravity: {
             entry: assign(context => {
-              const codeSample = `TODO unpauseGravity`
+              const codeSample = `<Physics>
+  <RigidBody />
+  <Collider />
+</Physics>`
               const currentStep = 3
-              return { ...context, currentStep, codeSample }
+              return { ...context, currentStep, showStepTitle: false, codeSample }
             }),
             on: {
               fadeToBlack: {
@@ -267,10 +288,25 @@ export const talkMachine = createMachine(
           },
           fadeToBlack: {
             entry: assign(context => {
-              const codeSample = `TODO fadeToBlack`
+              const codeSample = `<CameraControls />
+<PointerLockControls />
+<KeyBoardControls />`
               const currentStep = 4
               const color = new Color('black')
-              return { ...context, currentStep, color, codeSample }
+              return { ...context, showStepTitle: true, currentStep, color, codeSample }
+            }),
+            on: {
+              triggerDialog: {
+                target: 'triggerDialog'
+              }
+            }
+          },
+          triggerDialog: {
+            entry: assign(context => {
+              const codeSample = `TODO trigger dialog`
+              const currentStep = 5
+              const color = new Color('black')
+              return { ...context, currentStep, showStepTitle: false, color, codeSample }
             })
           }
         }
@@ -289,6 +325,7 @@ export const talkMachine = createMachine(
         | { type: 'texturesVisible' }
         | { type: 'unpausedGravity' }
         | { type: 'fadeToBlack' }
+        | { type: 'triggerDialog' }
     },
     predictableActionArguments: true,
     preserveActionOrder: true
