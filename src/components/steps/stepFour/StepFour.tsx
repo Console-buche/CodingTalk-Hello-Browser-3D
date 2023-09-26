@@ -1,9 +1,11 @@
 import { SpotLight } from '@react-three/drei'
 import { useEffect, useRef } from 'react'
 import { type SpotLight as SpotL } from 'three'
+import { TalkMachineContext } from '../../../machines/talkMachine.context'
 import { ScientistModel } from './ScientistModel'
 
 export const StepFour = () => {
+  const [state] = TalkMachineContext.useActor()
   const ref = useRef<SpotL>(null)
 
   useEffect(() => {

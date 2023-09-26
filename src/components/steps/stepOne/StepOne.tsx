@@ -20,6 +20,9 @@ export const StepOne = () => {
     ref.current.rotation.z += state.context.rotationView.z
   })
 
+  if (state.context.currentStep >= 0.5) {
+    return null
+  }
   return (
     <>
       <group ref={ref}>

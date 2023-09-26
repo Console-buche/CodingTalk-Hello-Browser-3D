@@ -1,7 +1,7 @@
 import { a, useTrail } from '@react-spring/three'
 import { Plane } from '@react-three/drei'
 import { RigidBody } from '@react-three/rapier'
-import { useMemo, useState } from 'react'
+import { useContext, useEffect, useMemo, useState } from 'react'
 import {
   MeshBasicMaterial,
   MeshLambertMaterial,
@@ -14,6 +14,7 @@ import {
 } from 'three'
 import { TalkMachineContext } from '../../../machines/talkMachine.context'
 import Manu from '/tex0.jpg'
+import { PhysicsContext } from '../../scene/Scene'
 
 const POSITIONS_X = [19, 21, 23, 19, 21, 23, 19, 21, 23]
 const POSITIONS_Y = [1.5, 1.5, 1.5, -0.5, -0.5, -0.5, -2.5, -2.5, -2.5]
@@ -31,7 +32,14 @@ const MATERIALS = [
 
 export const Boxes = () => {
   const [state] = TalkMachineContext.useActor()
+  const { setIsPhysicsPaused } = useContext(PhysicsContext)
   const [open, setIsOpen] = useState(false)
+
+  useEffect(() => {
+    if (setIsPhysicsPaused && state.context.currentStep >= 3) {
+      setIsPhysicsPaused(false)
+    }
+  }, [state.context.currentStep])
 
   const TEX = useMemo(() => {
     const loader = new TextureLoader()

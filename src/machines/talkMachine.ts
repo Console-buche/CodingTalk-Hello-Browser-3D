@@ -320,7 +320,6 @@ export const talkMachine = createMachine(
       }),
       addRestTriangle: assign(context => {
         const newTrianglesCount = context.stepOneTrianglesRestCount + 1
-        console.log('adding rest triangles')
         return {
           ...context,
           stepOneTrianglesRestCount: newTrianglesCount
