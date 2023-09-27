@@ -21,8 +21,6 @@ export const Scene = () => {
 
   return (
     <Canvas shadows gl={{ alpha: true, antialias: true }} className="scene">
-      <ambientLight />
-
       <Controls>
         <PhysicsContext.Provider value={{ setIsPhysicsPaused }}>
           <Color />

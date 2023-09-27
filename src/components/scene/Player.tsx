@@ -28,6 +28,9 @@ export function Player() {
     direction.subVectors(frontVector, sideVector).normalize().multiplyScalar(SPEED).applyEuler(camera.rotation)
     camera.position.add(direction)
 
+    if (state.context.currentStep >= 6) {
+      camera.position.setY(-1.5)
+    }
     fadeToBlack(camera.rotation.y)
   })
   return null

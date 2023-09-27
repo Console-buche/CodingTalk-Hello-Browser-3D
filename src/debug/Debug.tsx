@@ -1,19 +1,34 @@
-import { button, useControls } from 'leva'
+import { button, Leva, useControls } from 'leva'
 import { TalkMachineContext } from '../machines/talkMachine.context'
+import './leva.css'
 
 export const Debug = () => {
-  const [_, event] = TalkMachineContext.useActor()
+  const [state, event] = TalkMachineContext.useActor()
   useControls({
-    stepOne: button(() => event({ type: 'start' })),
-    showOneVertex: button(() => event({ type: 'showOneVertex' })),
-    oneVertexVisible: button(() => event({ type: 'addVertices' })),
-    finishBuildingWithEdges: button(() => event({ type: 'addRestVertices' })),
-    finishBuildingWithTriangles: button(() => event({ type: 'addRestTriangles' })),
-    moveToStepTwo: button(() => event({ type: 'moveToStepTwo' })),
-    showWallOfBoxes: button(() => event({ type: 'showWallOfBoxes' })),
-    lightUpTheWall: button(() => event({ type: 'lightUpWallOfBoxes' })),
-    showTextures: button(() => event({ type: 'texturesVisible' })),
-    unpausedGravity: button(() => event({ type: 'unpausedGravity' }))
+    'Hello World': button(() => event({ type: 'start' })),
+    'Vertex, vertices': button(() => event({ type: 'showOneVertex' })),
+    'Form the shape': button(() => event({ type: 'addVertices' })),
+    'Build full triangle': button(() => event({ type: 'addRestVertices' })),
+    'Paint the faces': button(() => event({ type: 'addRestTriangles' })),
+    'Lights and colors': button(() => event({ type: 'moveToStepTwo' })),
+    Materials: button(() => event({ type: 'showWallOfBoxes' })),
+    Lights: button(() => event({ type: 'lightUpWallOfBoxes' })),
+    Events: button(() => event({ type: 'texturesVisible' })),
+    Gravity: button(() => event({ type: 'unpausedGravity' }))
   })
-  return <></>
+  return (
+    <Leva
+      titleBar={{ title: 'Coding Talk / 3D' }}
+      hideCopyButton
+      theme={{
+        colors: {
+          accent2: state.context.color.getStyle(),
+          elevation2: 'transparent',
+          elevation1: 'transparent'
+        }
+      }}
+      collapsed
+      flat
+    />
+  )
 }

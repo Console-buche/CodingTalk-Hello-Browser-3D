@@ -155,7 +155,7 @@ type GLTFResult = GLTF & {
 export function HlMapModel(props: JSX.IntrinsicElements['group']) {
   const { nodes, materials } = useGLTF('/hl_map-transformed.glb') as GLTFResult
   return (
-    <group scale={0.025} position-y={-3.5} {...props} dispose={null}>
+    <group scale={0.025} position-z={29} position-y={-3.5} {...props} dispose={null}>
       <group>
         <group>
           <mesh geometry={nodes.hl_mp_stalkyard_1.geometry} material={materials.material_0} />

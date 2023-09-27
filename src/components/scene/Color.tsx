@@ -14,5 +14,10 @@ export const Color = () => {
     ref.current.lerp(state.context.color, 0.1)
   })
 
-  return <color ref={ref} attach="background" />
+  return (
+    <>
+      {state.context.currentStep >= 6 && <ambientLight />}
+      <color ref={ref} attach="background" />
+    </>
+  )
 }

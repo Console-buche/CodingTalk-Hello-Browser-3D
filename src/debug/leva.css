@@ -1,0 +1,23 @@
+.leva {
+  background-color: #1e1e1e;
+  color: #00ff00;
+  border: 1px solid #333;
+}
+
+.leva__row__label {
+  color: #0f0;
+}
+
+.leva__row {
+  border-bottom: 1px solid #333;
+}
+
+.leva button {
+  background: #333;
+  border: 1px solid #00ff00;
+  color: #00ff00;
+}
+
+.leva button:hover {
+  background: #444;
+}

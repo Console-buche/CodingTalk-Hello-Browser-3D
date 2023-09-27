@@ -1,4 +1,3 @@
-import { useTrail } from '@react-spring/three'
 import { RigidBody } from '@react-three/rapier'
 import { useContext, useEffect, useMemo, useState } from 'react'
 import {
@@ -9,24 +8,19 @@ import {
   MeshPhongMaterial,
   MeshStandardMaterial,
   MeshToonMaterial,
-  TextureLoader,
   Vector3
 } from 'three'
 import { TalkMachineContext } from '../../../machines/talkMachine.context'
-import Manu from '/tex0.jpg'
 import { PhysicsContext } from '../../scene/Scene'
-import { Boxe } from './Boxe'
 import { Box, Sphere } from '@react-three/drei'
 import { useFrame, useThree } from '@react-three/fiber'
-
-const POSITIONS_X = [19, 21, 23, 19, 21, 23, 19, 21, 23]
-const POSITIONS_Y = [1.5, 1.5, 1.5, -0.5, -0.5, -0.5, -2.5, -2.5, -2.5]
+import { Grid } from './Grid'
 const MATERIALS = [
   new MeshPhongMaterial({ color: 'blue', emissiveIntensity: 2 }),
   new MeshBasicMaterial({ color: 'blue' }),
   new MeshToonMaterial({ color: 'green', emissiveIntensity: 2 }),
   new MeshBasicMaterial({ color: 'blue' }),
-  new MeshLambertMaterial({ color: 'blue', emissiveIntensity: 2 }),
+  new MeshLambertMaterial({ color: 'orange', emissiveIntensity: 2 }),
   new MeshBasicMaterial({ color: 'blue' }),
   new MeshStandardMaterial({ color: 'blue', emissiveIntensity: 2 }),
   new MeshMatcapMaterial({ color: 'blue' }),
@@ -38,7 +32,6 @@ export const Boxes = () => {
 
   const { camera } = useThree()
   const { setIsPhysicsPaused } = useContext(PhysicsContext)
-  const [open, setIsOpen] = useState(false)
   const [spheresToShoot, setSpheresToShoot] = useState([])
 
   const handleMouseDown = () => {
@@ -73,24 +66,6 @@ export const Boxes = () => {
     )
   })
 
-  const TEX = useMemo(() => {
-    const loader = new TextureLoader()
-    return [loader.load(Manu)]
-  }, [])
-
-  const trail = useTrail(9, {
-    scale: state.context.currentStep >= 1 || open ? 1 : 0,
-    roty: state.context.currentStep >= 2.5 || open ? 0 : Math.PI,
-    from: {
-      scale: state.context.currentStep === 1 || open ? 0 : 1,
-      roty: state.context.currentStep === 1 || open ? Math.PI : 0
-    },
-    config: {
-      mass: 2,
-      tension: 220
-    }
-  })
-
   const AThousandBoxes = useMemo(
     () =>
       Array.from({ length: 100 }, (_, i) => ({
@@ -104,19 +79,7 @@ export const Boxes = () => {
 
   return (
     <>
-      {trail.map(({ scale, roty }, index) => (
-        <RigidBody key={`boxes-${index}`} colliders="cuboid" shape="cuboid" density={10}>
-          <Boxe
-            material={MATERIALS[index]}
-            posx={POSITIONS_X[index]}
-            posy={POSITIONS_Y[index]}
-            tex={TEX[index]}
-            scale={scale}
-            roty={roty}
-            index={index}
-          />
-        </RigidBody>
-      ))}
+      <Grid />
       {AThousandBoxes.map(({ index, position, rotation }, i) => (
         <group key={index}>
           {i % 2 === 0 ? (
