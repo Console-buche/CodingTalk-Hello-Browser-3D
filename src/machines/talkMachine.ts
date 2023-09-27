@@ -303,10 +303,22 @@ export const talkMachine = createMachine(
           },
           triggerDialog: {
             entry: assign(context => {
-              const codeSample = `TODO trigger dialog`
+              const codeSample = `<Html />`
               const currentStep = 5
               const color = new Color('black')
               return { ...context, currentStep, showStepTitle: false, color, codeSample }
+            }),
+            on: {
+              holdCanon: {
+                target: 'holdCanon'
+              }
+            }
+          },
+          holdCanon: {
+            entry: assign(context => {
+              const currentStep = 6
+              const color = new Color('orange')
+              return { ...context, currentStep, showStepTitle: false, color }
             })
           }
         }
@@ -326,6 +338,7 @@ export const talkMachine = createMachine(
         | { type: 'unpausedGravity' }
         | { type: 'fadeToBlack' }
         | { type: 'triggerDialog' }
+        | { type: 'holdCanon' }
     },
     predictableActionArguments: true,
     preserveActionOrder: true

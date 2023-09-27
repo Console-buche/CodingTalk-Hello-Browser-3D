@@ -31,7 +31,7 @@ export function PsyCanon(props: JSX.IntrinsicElements['group']) {
   const refCanon = useRef<THREE.Group>(null)
   const [isHolding, setIsHolding] = useState(false)
   const refSpin = useRef<THREE.Mesh>(null)
-  const [state] = TalkMachineContext.useActor()
+  const [state, event] = TalkMachineContext.useActor()
 
   const { posy } = useSpring({
     posy: state.context.currentStep >= 5 ? props.position[1] : 0,
@@ -54,10 +54,6 @@ export function PsyCanon(props: JSX.IntrinsicElements['group']) {
       offset.applyQuaternion(camera.quaternion)
       const pos = camera.position.clone().add(offset)
       refCanon.current.position.copy(pos)
-      // refCanon.current.rotation.z = camera.rotation.z
-      // ii
-      //
-      //
       return
     }
 
@@ -66,6 +62,7 @@ export function PsyCanon(props: JSX.IntrinsicElements['group']) {
 
     if (!isHolding && camera.position.distanceTo(refCanon.current.position) < 1.5) {
       setIsHolding(true)
+      event({ type: 'holdCanon' })
     }
   })
 

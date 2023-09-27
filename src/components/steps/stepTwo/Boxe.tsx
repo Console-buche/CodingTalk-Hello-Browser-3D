@@ -18,7 +18,7 @@ export const Boxe = ({ tex, scale, roty, material, posx, posy }: Boxe) => {
   const [state] = TalkMachineContext.useActor()
   const [hover, toggleHover] = useReducer(v => !v, false)
   const { rotx, opacity } = useSpring({
-    opacity: state.context.currentStep < 4 ? 1 : 0,
+    opacity: state.context.currentStep < 4 ? 1 : 1,
     rotx: hover ? Math.PI : 0,
     config: {
       duration: 550,

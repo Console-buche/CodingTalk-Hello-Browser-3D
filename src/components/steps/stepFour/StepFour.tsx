@@ -35,27 +35,31 @@ export const StepFour = () => {
 
   return (
     <>
-      <SpotLight
-        opacity={0.3}
-        distance={7}
-        angle={0.45}
-        ref={ref}
-        intensity={15}
-        attenuation={4.75}
-        position={posScientistSpotlight}
-      />
+      {state.context.currentStep < 6 && (
+        <SpotLight
+          opacity={0.3}
+          distance={7}
+          angle={0.45}
+          ref={ref}
+          intensity={15}
+          attenuation={4.75}
+          position={posScientistSpotlight}
+        />
+      )}
       <ScientistModel position={posScientist} scale={0.03} />
 
       <StepTitle value="controls and models" step={4} contextStep={4} px={30} pz={20} ry={Math.PI} />
-      <SpotLight
-        opacity={0.3}
-        distance={7}
-        angle={0.15}
-        ref={refTwo}
-        intensity={5}
-        attenuation={2.75}
-        position={posGunSpotlight}
-      />
+      {state.context.currentStep < 6 && (
+        <SpotLight
+          opacity={0.3}
+          distance={7}
+          angle={0.15}
+          ref={refTwo}
+          intensity={5}
+          attenuation={2.75}
+          position={posGunSpotlight}
+        />
+      )}
       <PsyCanon position={posGun} scale={1.5} />
       {state.context.currentStep >= 5 && (
         <Html position={posScientist} position-x={posScientist[0] + 2.5} position-y={posScientist[1] + 3.5}>

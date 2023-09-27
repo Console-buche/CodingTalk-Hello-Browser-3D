@@ -47,7 +47,7 @@ export const Scene = () => {
           {/* <Perf position="bottom-right" /> */}
           <Cam />
           <Suspense>
-            <Physics interpolate paused={isPhysicsPaused}>
+            <Physics interpolate gravity={[0, -10, 0]} paused={isPhysicsPaused}>
               <Steps>
                 <StepOne />
                 <StepTwo />
@@ -61,6 +61,7 @@ export const Scene = () => {
           <PostProcess />
         </PhysicsContext.Provider>
       </Canvas>
+      u
     </KeyboardControls>
   )
 }
