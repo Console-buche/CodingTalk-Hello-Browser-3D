@@ -59,11 +59,11 @@ export const Floor = () => {
           reflectorOffset={0.2} // Offsets the virtual camera that projects the reflection. Useful when the reflective surface is some distance from the object's origin (default = 0)
         />
       </a.mesh>
-      <a.mesh scale={floorScale} rotation-x={Math.PI * -0.5} receiveShadow position-y={-3.5}>
-        <planeGeometry />
-        <meshStandardMaterial map={TEX[0]} />
-      </a.mesh>
-
+      {/* <a.mesh scale={floorScale} rotation-x={Math.PI * -0.5} receiveShadow position-y={-3.5}> */}
+      {/*   <planeGeometry /> */}
+      {/*   <meshStandardMaterial map={TEX[0]} /> */}
+      {/* </a.mesh> */}
+      {/**/}
       <CuboidCollider position={[0, -4.5, 0]} args={[110, 1, 110]} />
     </>
   )

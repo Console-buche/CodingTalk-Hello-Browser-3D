@@ -11,7 +11,6 @@
   },
   "dependencies": {
     "@codemirror/lang-javascript": "^6.2.1",
-    "@dimforge/rapier3d-compat": "^0.11.2",
     "@react-spring/three": "^9.7.3",
     "@react-spring/web": "^9.7.3",
     "@react-three/drei": "^9.83.9",

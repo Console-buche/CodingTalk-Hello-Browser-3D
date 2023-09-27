@@ -1,9 +1,7 @@
-import { KeyboardControls } from '@react-three/drei'
 import { Canvas } from '@react-three/fiber'
 import { Physics } from '@react-three/rapier'
-import { Perf } from 'r3f-perf'
-import { Suspense, createContext, useContext, useState } from 'react'
-import { Cam } from '../../cam/Cam'
+import { Suspense, createContext, useState } from 'react'
+import { Controls } from '../../cam/Cam'
 import { PostProcess } from '../postprocess.tsx'
 import { Steps } from '../steps/Steps'
 import { StepFour } from '../steps/stepFour/StepFour.tsx'
@@ -12,9 +10,7 @@ import { StepTwo } from '../steps/stepTwo/StepTwo'
 import { Color } from './Color.tsx'
 import { Floor } from './Floor.tsx'
 import { Player } from './Player'
-
-//TODO: move the access to state away from root component to restore the perf
-//FIXME: READ ABoVE
+import './scene.css'
 
 export const PhysicsContext = createContext<{
   setIsPhysicsPaused: undefined | ((hasPhysics: boolean) => void)
@@ -22,30 +18,14 @@ export const PhysicsContext = createContext<{
 
 export const Scene = () => {
   const [isPhysicsPaused, setIsPhysicsPaused] = useState(true)
-  console.log('unpaused physics', isPhysicsPaused)
 
   return (
-    <KeyboardControls
-      map={[
-        { name: 'forward', keys: ['ArrowUp', 'w', 'W'] },
-        { name: 'backward', keys: ['ArrowDown', 's', 'S'] },
-        { name: 'left', keys: ['ArrowLeft', 'a', 'A'] },
-        { name: 'right', keys: ['ArrowRight', 'd', 'D'] },
-        { name: 'jump', keys: ['Space'] }
-      ]}
-    >
-      <Canvas
-        dpr={[1, 2]}
-        shadows
-        flat
-        gl={{ alpha: true, antialias: true }}
-        style={{ position: 'absolute', top: 0, left: 0, width: '100vw', height: '100vh' }}
-      >
+    <Canvas shadows gl={{ alpha: true, antialias: true }} className="scene">
+      <ambientLight />
+
+      <Controls>
         <PhysicsContext.Provider value={{ setIsPhysicsPaused }}>
-          {/* <ambientLight intensity={0.015} /> */}
           <Color />
-          {/* <Perf position="bottom-right" /> */}
-          <Cam />
           <Suspense>
             <Physics interpolate gravity={[0, -10, 0]} paused={isPhysicsPaused}>
               <Steps>
@@ -57,11 +37,10 @@ export const Scene = () => {
               <Floor />
             </Physics>
           </Suspense>
-
-          <PostProcess />
         </PhysicsContext.Provider>
-      </Canvas>
-      u
-    </KeyboardControls>
+      </Controls>
+
+      <PostProcess />
+    </Canvas>
   )
 }

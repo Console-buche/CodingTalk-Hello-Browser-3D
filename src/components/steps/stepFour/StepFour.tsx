@@ -6,6 +6,7 @@ import { ScientistModel } from './ScientistModel'
 import { PsyCanon } from './Weapon'
 import './StepFour.css'
 import { StepTitle } from '../StepTitle'
+import { HlMapModel } from './Hl_map'
 
 const posScientist = [20, -3.4, 30.5] as const
 const posScientistSpotlight = [20, 0.4, 30] as const
@@ -35,6 +36,7 @@ export const StepFour = () => {
 
   return (
     <>
+      {state.context.currentStep >= 6 && <HlMapModel />}
       {state.context.currentStep < 6 && (
         <SpotLight
           opacity={0.3}
