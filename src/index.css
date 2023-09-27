@@ -15,3 +15,10 @@
 body {
   margin: 0;
 }
+
+.appContainer {
+  display: flex;
+  height: 100vh;
+  align-items: center;
+  justify-content: start;
+}
