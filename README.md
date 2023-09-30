@@ -6,6 +6,16 @@
 
 This repository contains the code for a presentation I gave on the Coding Lab Discord channel. While the project is far from perfect—I was constrained by time and had to cut some corners—it's a working demo that you can clone, run, or modify as you see fit.
 
+## How To Run?
+
+<your package manager> install
+run dev
+
+## How To Use?
+
+There's a GUI menu that allows you to move through the steps.
+After reaching last step, click the screen to enter FPS mode and turn around.
+
 ## You're not too late to the party!
 
 For those who speak French, a video of the talk will soon be available on both my YouTube channel and Coding Lab's channel.
