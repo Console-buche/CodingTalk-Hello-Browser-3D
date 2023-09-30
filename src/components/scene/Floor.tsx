@@ -2,7 +2,6 @@ import { a, easings, useSpring } from '@react-spring/three'
 import { TalkMachineContext } from '../../machines/talkMachine.context'
 import { CuboidCollider } from '@react-three/rapier'
 import { MeshReflectorMaterial } from '@react-three/drei'
-import { InstancedFollowers } from '../steps/stepTwo/InstancedBoxes'
 
 export const Floor = () => {
   const [state] = TalkMachineContext.useActor()
@@ -20,7 +19,6 @@ export const Floor = () => {
 
   return (
     <>
-      <InstancedFollowers count={5400} />
       <a.mesh receiveShadow scale={reflectFloorScale} rotation-x={Math.PI * -0.5} position-y={reflectFloorHeight}>
         <planeGeometry args={[100, 100, 100]} />
         <MeshReflectorMaterial
