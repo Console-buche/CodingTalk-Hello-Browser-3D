@@ -19,7 +19,6 @@ export const Debug = () => {
   return (
     <Leva
       titleBar={{ title: 'Coding Talk / 3D' }}
-      hideCopyButton
       theme={{
         colors: {
           accent2: state.context.color.getStyle(),
@@ -27,7 +26,6 @@ export const Debug = () => {
           elevation1: 'transparent'
         }
       }}
-      collapsed
       flat
     />
   )
