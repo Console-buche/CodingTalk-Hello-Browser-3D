@@ -11,8 +11,7 @@ export const MovingLight = () => {
   const refTwo = useRef<Mesh>(null)
   const refThree = useRef<Mesh>(null)
 
-  const { py, intensity, power, distance, ambientIntensity } = useSpring({
-    py: state.context.currentStep >= 2 && state.context.currentStep < 4 ? 0 : -20,
+  const { intensity, power, distance, ambientIntensity } = useSpring({
     intensity: state.context.currentStep >= 2 && state.context.currentStep < 4 ? 3 : 0,
     power: state.context.currentStep >= 2 && state.context.currentStep < 4 ? 100 : 0,
     distance: state.context.currentStep >= 2 && state.context.currentStep < 4 ? 150 : 0,

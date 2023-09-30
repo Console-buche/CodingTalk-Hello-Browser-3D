@@ -1,7 +1,6 @@
 import { useTrail } from '@react-spring/three'
 import { RigidBody } from '@react-three/rapier'
-import { useContext, useEffect, useMemo, useState } from 'react'
-import Manu from '/tex0.jpg'
+import { useContext, useEffect } from 'react'
 import {
   MeshBasicMaterial,
   MeshLambertMaterial,
@@ -9,8 +8,7 @@ import {
   MeshNormalMaterial,
   MeshPhongMaterial,
   MeshStandardMaterial,
-  MeshToonMaterial,
-  TextureLoader
+  MeshToonMaterial
 } from 'three'
 import { TalkMachineContext } from '../../../machines/talkMachine.context'
 import { PhysicsContext } from '../../scene/Scene'
@@ -34,7 +32,6 @@ export const Grid = () => {
   const [state] = TalkMachineContext.useActor()
 
   const { setIsPhysicsPaused } = useContext(PhysicsContext)
-  const [open, setIsOpen] = useState(false)
 
   useEffect(() => {
     if (setIsPhysicsPaused && state.context.currentStep >= 3) {
@@ -43,23 +40,17 @@ export const Grid = () => {
   }, [state.context.currentStep])
 
   const trail = useTrail(9, {
-    scale: state.context.currentStep >= 1 || open ? 1 : 0,
-    roty: state.context.currentStep >= 2.5 || open ? 0 : Math.PI,
+    scale: state.context.currentStep >= 1 ? 1 : 0,
+    roty: state.context.currentStep >= 2.5 ? 0 : Math.PI,
     from: {
-      scale: state.context.currentStep === 1 || open ? 0 : 1,
-      roty: state.context.currentStep === 1 || open ? Math.PI : 0
+      scale: state.context.currentStep === 1 ? 0 : 1,
+      roty: state.context.currentStep === 1 ? Math.PI : 0
     },
     config: {
       mass: 2,
       tension: 220
     }
   })
-
-  const TEX = useMemo(() => {
-    const loader = new TextureLoader()
-    return [loader.load(Manu)]
-  }, [])
-
   return (
     <>
       {trail.map(({ scale, roty }, index) => (
@@ -68,7 +59,6 @@ export const Grid = () => {
             material={MATERIALS[index]}
             posx={POSITIONS_X[index]}
             posy={POSITIONS_Y[index]}
-            tex={TEX[index]}
             scale={scale}
             roty={roty}
             index={index}

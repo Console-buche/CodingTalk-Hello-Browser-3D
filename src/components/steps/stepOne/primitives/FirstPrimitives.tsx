@@ -9,7 +9,6 @@ import { Color } from 'three'
 export const FirstPrimitives = (props: GroupProps) => {
   const [state] = TalkMachineContext.useActor()
   const vertices = Array.from(STEP_ONE_VERTICES.values())
-
   const points = Array.from(STEP_ONE_LINEPOINTS.values())
 
   return (

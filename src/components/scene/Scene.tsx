@@ -26,11 +26,9 @@ export const Scene = () => {
           <Color />
           <Suspense>
             <Physics interpolate gravity={[0, -10, 0]} paused={isPhysicsPaused}>
-              <Steps>
-                <StepOne />
-                <StepTwo />
-                <StepFour />
-              </Steps>
+              <StepOne />
+              <StepTwo />
+              <StepFour />
               <Player />
               <Floor />
             </Physics>

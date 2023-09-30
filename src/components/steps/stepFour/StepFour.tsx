@@ -50,7 +50,7 @@ export const StepFour = () => {
       )}
       <ScientistModel position={posScientist} scale={0.03} />
 
-      <StepTitle value="controls and models" step={4} contextStep={4} px={30} pz={20} ry={Math.PI} />
+      <StepTitle value="controls and models" step={3} contextStep={4} px={30} pz={20} ry={Math.PI} />
       {state.context.currentStep < 6 && (
         <SpotLight
           opacity={0.3}
@@ -65,7 +65,6 @@ export const StepFour = () => {
       <PsyCanon position={posGun} scale={1.5} />
       {state.context.currentStep >= 5 && (
         <Html position={posScientist} position-x={posScientist[0] + 2.5} position-y={posScientist[1] + 3.5}>
-          {/* html for a simple dialog hud box in a video game */}
           <div className="dialog">
             <span className="dialog-name">Scientist</span>
             <span className="dialog-message">
